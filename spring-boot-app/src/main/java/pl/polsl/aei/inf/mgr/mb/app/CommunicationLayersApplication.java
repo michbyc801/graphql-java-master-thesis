@@ -9,7 +9,8 @@ import org.springframework.context.annotation.ComponentScan;
 public class CommunicationLayersApplication
 {
 
-    public static void main(String[] args) {
+    public static void main(final String[] args)
+    {
         SpringApplication.run(CommunicationLayersApplication.class, args);
     }
 }
