@@ -22,8 +22,9 @@
 		</dependency>
 
 		<dependency>
-			<groupId>org.springframework.boot</groupId>
-			<artifactId>spring-boot-starter</artifactId>
+			<groupId>pl.polsl.aei.inf.mgr.mb</groupId>
+			<artifactId>restapi-layer</artifactId>
+			<version>1.0.0</version>
 		</dependency>
 	</dependencies>
 
