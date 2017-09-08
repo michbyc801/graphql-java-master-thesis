@@ -16,6 +16,11 @@
 	<version>1.0.0</version>
 	<packaging>pom</packaging>
 
+	<properties>
+		<maven.compiler.target>1.8</maven.compiler.target>
+		<maven.compiler.source>1.8</maven.compiler.source>
+	</properties>
+
 	<modules>
 		<module>spring-boot-app</module>
 		<module>graphql-layer</module>
