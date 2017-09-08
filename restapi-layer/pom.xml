@@ -13,5 +13,17 @@
     <artifactId>restapi-layer</artifactId>
     <version>1.0.0</version>
 
+    <dependencies>
+        <dependency>
+            <groupId>pl.polsl.aei.inf.mgr.mb</groupId>
+            <artifactId>repositories</artifactId>
+            <version>1.0.0</version>
+        </dependency>
+
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-web</artifactId>
+        </dependency>
+    </dependencies>
     
 </project>

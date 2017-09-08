@@ -6,34 +6,18 @@
 
 	<parent>
 		<groupId>pl.polsl.aei.inf.mgr.mb</groupId>
-		<artifactId>communication-layers</artifactId>
+		<artifactId>data</artifactId>
 		<version>1.0.0</version>
 	</parent>
 
-	<artifactId>spring-boot-app</artifactId>
+	<artifactId>repositories</artifactId>
 	<version>1.0.0</version>
-	<packaging>war</packaging>
 
 	<dependencies>
 		<dependency>
 			<groupId>pl.polsl.aei.inf.mgr.mb</groupId>
-			<artifactId>graphql-layer</artifactId>
-			<version>1.0.0</version>
-		</dependency>
-
-		<dependency>
-			<groupId>pl.polsl.aei.inf.mgr.mb</groupId>
-			<artifactId>restapi-layer</artifactId>
+			<artifactId>model</artifactId>
 			<version>1.0.0</version>
 		</dependency>
 	</dependencies>
-
-	<build>
-		<plugins>
-			<plugin>
-				<groupId>org.springframework.boot</groupId>
-				<artifactId>spring-boot-maven-plugin</artifactId>
-			</plugin>
-		</plugins>
-	</build>
 </project>
