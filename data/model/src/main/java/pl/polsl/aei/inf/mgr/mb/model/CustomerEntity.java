@@ -19,7 +19,7 @@ import javax.persistence.OneToOne;
 @javax.persistence.Table(name = "customer")
 public class CustomerEntity
 {
-	private short customerId;
+	private int customerId;
 	private StoreEntity store;
 	private String firstName;
 	private String lastName;
@@ -32,12 +32,12 @@ public class CustomerEntity
 
 	@Id
 	@javax.persistence.Column(name = "customer_id")
-	public short getCustomerId()
+	public int getCustomerId()
 	{
 		return customerId;
 	}
 
-	public void setCustomerId(final short customerId)
+	public void setCustomerId(final int customerId)
 	{
 		this.customerId = customerId;
 	}

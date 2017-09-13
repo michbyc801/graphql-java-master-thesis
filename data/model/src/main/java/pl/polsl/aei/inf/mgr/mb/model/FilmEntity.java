@@ -20,9 +20,15 @@ import javax.persistence.OneToMany;
 
 
 @Entity
+@javax.persistence.Table(name = "film")
+@NamedEntityGraphs(value = {
+		@NamedEntityGraph(name = "Film.actorsRel", attributeNodes = {
+				@NamedAttributeNode("actorsRel")
+		})
+})
 public class FilmEntity
 {
-	private short filmId;
+	private int filmId;
 	private String title;
 	private String description;
 	private String releaseYear;
@@ -40,12 +46,12 @@ public class FilmEntity
 
 	@Id
 	@javax.persistence.Column(name = "film_id")
-	public short getFilmId()
+	public int getFilmId()
 	{
 		return filmId;
 	}
 
-	public void setFilmId(final short filmId)
+	public void setFilmId(final int filmId)
 	{
 		this.filmId = filmId;
 	}

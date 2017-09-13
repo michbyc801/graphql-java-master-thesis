@@ -13,18 +13,18 @@ import javax.persistence.Table;
 @Table(name = "language")
 public class LanguageEntity
 {
-	private byte languageId;
+	private int languageId;
 	private String name;
 	private Timestamp lastUpdate;
 
 	@Id
 	@Column(name = "language_id")
-	public byte getLanguageId()
+	public int getLanguageId()
 	{
 		return languageId;
 	}
 
-	public void setLanguageId(final byte languageId)
+	public void setLanguageId(final int languageId)
 	{
 		this.languageId = languageId;
 	}

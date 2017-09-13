@@ -18,19 +18,19 @@ import javax.persistence.Table;
 @Table(name = "category")
 public class CategoryEntity
 {
-	private byte categoryId;
+	private int categoryId;
 	private String name;
 	private Timestamp lastUpdate;
 	private Set<FilmCategoryRel> filmsRel;
 
 	@Id
 	@Column(name = "category_id")
-	public byte getCategoryId()
+	public int getCategoryId()
 	{
 		return categoryId;
 	}
 
-	public void setCategoryId(final byte categoryId)
+	public void setCategoryId(final int categoryId)
 	{
 		this.categoryId = categoryId;
 	}

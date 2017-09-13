@@ -17,7 +17,7 @@ import javax.persistence.Table;
 @Table(name = "payment")
 public class PaymentEntity
 {
-	private short paymentId;
+	private int paymentId;
 	private CustomerEntity customer;
 	private RentalEntity rental;
 	private StaffEntity staff;
@@ -27,12 +27,12 @@ public class PaymentEntity
 
 	@Id
 	@Column(name = "payment_id")
-	public short getPaymentId()
+	public int getPaymentId()
 	{
 		return paymentId;
 	}
 
-	public void setPaymentId(final short paymentId)
+	public void setPaymentId(final int paymentId)
 	{
 		this.paymentId = paymentId;
 	}

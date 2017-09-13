@@ -17,19 +17,19 @@ import javax.persistence.Table;
 @Table(name = "country")
 public class CountryEntity
 {
-	private short countryId;
+	private int countryId;
 	private String country;
 	private Timestamp lastUpdate;
 	private List<CityEntity> cities = new ArrayList<>();
 
 	@Id
 	@Column(name = "country_id")
-	public short getCountryId()
+	public int getCountryId()
 	{
 		return countryId;
 	}
 
-	public void setCountryId(final short countryId)
+	public void setCountryId(final int countryId)
 	{
 		this.countryId = countryId;
 	}

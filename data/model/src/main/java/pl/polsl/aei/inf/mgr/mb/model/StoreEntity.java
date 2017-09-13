@@ -21,7 +21,7 @@ import javax.persistence.Table;
 @Table(name = "store")
 public class StoreEntity
 {
-	private byte storeId;
+	private int storeId;
 	private StoreEntity manager;
 	private AddressEntity address;
 	private Timestamp lastUpdate;
@@ -30,12 +30,12 @@ public class StoreEntity
 
 	@Id
 	@Column(name = "store_id")
-	public byte getStoreId()
+	public int getStoreId()
 	{
 		return storeId;
 	}
 
-	public void setStoreId(final byte storeId)
+	public void setStoreId(final int storeId)
 	{
 		this.storeId = storeId;
 	}

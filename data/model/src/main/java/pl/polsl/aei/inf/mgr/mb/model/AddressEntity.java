@@ -14,7 +14,7 @@ import javax.persistence.Table;
 @Table(name = "address")
 public class AddressEntity
 {
-	private short addressId;
+	private int addressId;
 	private String address;
 	private String address2;
 	private String district;
@@ -25,12 +25,12 @@ public class AddressEntity
 
 	@Id
 	@javax.persistence.Column(name = "address_id")
-	public short getAddressId()
+	public int getAddressId()
 	{
 		return addressId;
 	}
 
-	public void setAddressId(final short addressId)
+	public void setAddressId(final int addressId)
 	{
 		this.addressId = addressId;
 	}

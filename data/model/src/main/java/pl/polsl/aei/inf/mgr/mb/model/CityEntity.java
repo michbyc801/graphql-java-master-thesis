@@ -19,7 +19,7 @@ import javax.persistence.Table;
 @Table(name = "city")
 public class CityEntity
 {
-	private short cityId;
+	private int cityId;
 	private String city;
 	private Timestamp lastUpdate;
 	private CountryEntity country;
@@ -27,12 +27,12 @@ public class CityEntity
 
 	@Id
 	@Column(name = "city_id")
-	public short getCityId()
+	public int getCityId()
 	{
 		return cityId;
 	}
 
-	public void setCityId(final short cityId)
+	public void setCityId(final int cityId)
 	{
 		this.cityId = cityId;
 	}

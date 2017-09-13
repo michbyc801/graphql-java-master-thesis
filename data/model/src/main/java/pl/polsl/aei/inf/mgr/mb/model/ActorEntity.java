@@ -20,9 +20,14 @@ import javax.persistence.Table;
 
 @Entity
 @Table(name = "actor")
+@NamedEntityGraphs(value = {
+		@NamedEntityGraph(name = "Actor.filmsRel", attributeNodes = {
+				@NamedAttributeNode("filmsRel")
+		})
+})
 public class ActorEntity
 {
-	private short actorId;
+	private int actorId;
 	private String firstName;
 	private String lastName;
 	private Timestamp lastUpdate;
@@ -30,12 +35,12 @@ public class ActorEntity
 
 	@Id
 	@Column(name = "actor_id")
-	public short getActorId()
+	public int getActorId()
 	{
 		return actorId;
 	}
 
-	public void setActorId(final short actorId)
+	public void setActorId(final int actorId)
 	{
 		this.actorId = actorId;
 	}

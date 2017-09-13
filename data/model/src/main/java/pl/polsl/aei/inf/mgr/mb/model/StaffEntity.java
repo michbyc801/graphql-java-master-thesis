@@ -19,7 +19,7 @@ import javax.persistence.OneToOne;
 @javax.persistence.Table(name = "staff")
 public class StaffEntity
 {
-	private byte staffId;
+	private int staffId;
 	private String firstName;
 	private String lastName;
 	private AddressEntity address;
@@ -35,12 +35,12 @@ public class StaffEntity
 
 	@Id
 	@javax.persistence.Column(name = "staff_id")
-	public byte getStaffId()
+	public int getStaffId()
 	{
 		return staffId;
 	}
 
-	public void setStaffId(final byte staffId)
+	public void setStaffId(final int staffId)
 	{
 		this.staffId = staffId;
 	}
