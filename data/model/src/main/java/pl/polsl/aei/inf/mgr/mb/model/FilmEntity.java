@@ -209,6 +209,10 @@ public class FilmEntity
 		return actorsRel;
 	}
 
+	public void setActorsRel(final Set<FilmActorRel> actorsRel)
+	{
+		this.actorsRel = actorsRel;
+	}
 	@OneToMany(
 			mappedBy = "film",
 			cascade = CascadeType.ALL,
@@ -228,5 +232,6 @@ public class FilmEntity
 		return actorsRel.stream().map(FilmActorRel::getActor).collect(Collectors.toList());
 	}
 
-	public List<CategoryEntity> categories(){return categoriesRel.stream().map(FilmCategoryRel::getCategoryEntity).collect(Collectors.toList());}
+	public List<CategoryEntity> categories(){return categoriesRel.stream().map(FilmCategoryRel::getCategory).collect(Collectors.toList());}
+
 }

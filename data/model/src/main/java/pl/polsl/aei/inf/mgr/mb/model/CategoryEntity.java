@@ -75,6 +75,6 @@ public class CategoryEntity
 
 	public List<FilmEntity> films()
 	{
-		return filmsRel.stream().map(FilmCategoryRel::getFilmEntity).collect(Collectors.toList());
+		return filmsRel.stream().map(FilmCategoryRel::getFilm).collect(Collectors.toList());
 	}
 }

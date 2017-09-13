@@ -15,34 +15,34 @@ import javax.persistence.Table;
 @Table(name = "film_category")
 public class FilmCategoryRel implements Serializable
 {
-	private FilmEntity filmEntity;
-	private CategoryEntity categoryEntity;
+	private FilmEntity film;
+	private CategoryEntity category;
 	private Timestamp lastUpdate;
 
 	@Id
 	@ManyToOne
 	@JoinColumn(name = "film_id")
-	public FilmEntity getFilmEntity()
+	public FilmEntity getFilm()
 	{
-		return filmEntity;
+		return film;
 	}
 
-	public void setFilmEntity(final FilmEntity filmEntity)
+	public void setFilm(final FilmEntity film)
 	{
-		this.filmEntity = filmEntity;
+		this.film = film;
 	}
 
 	@Id
 	@ManyToOne
 	@JoinColumn(name = "category_id")
-	public CategoryEntity getCategoryEntity()
+	public CategoryEntity getCategory()
 	{
-		return categoryEntity;
+		return category;
 	}
 
-	public void setCategoryEntity(final CategoryEntity categoryEntity)
+	public void setCategory(final CategoryEntity category)
 	{
-		this.categoryEntity = categoryEntity;
+		this.category = category;
 	}
 
 	@Basic
