@@ -19,11 +19,11 @@ import javax.persistence.Table;
 
 @Entity
 @Table(name = "category")
+//@formatter:off
 @NamedEntityGraphs(value = {
-		@NamedEntityGraph(name = "Category.filmsRel", attributeNodes = {
-				@NamedAttributeNode("filmsRel")
-		})
+		@NamedEntityGraph(name = "Category.filmsRel", attributeNodes = {@NamedAttributeNode("filmsRel")})
 })
+//@formatter:on
 public class CategoryEntity
 {
 	private int categoryId;
@@ -67,10 +67,7 @@ public class CategoryEntity
 		this.lastUpdate = lastUpdate;
 	}
 
-	@OneToMany(
-			mappedBy = "category",
-			cascade = CascadeType.ALL,
-			orphanRemoval = true)
+	@OneToMany(mappedBy = "category", cascade = CascadeType.ALL, orphanRemoval = true)
 	public Set<FilmCategoryRel> getFilmsRel()
 	{
 		return filmsRel;

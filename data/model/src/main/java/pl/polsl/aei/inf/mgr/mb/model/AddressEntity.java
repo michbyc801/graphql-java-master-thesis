@@ -15,7 +15,11 @@ import javax.persistence.Table;
 
 @Entity
 @Table(name = "address")
-@NamedEntityGraphs(value = {@NamedEntityGraph(name = "Address.city", attributeNodes = {@NamedAttributeNode("city")})})
+//@formatter:off
+@NamedEntityGraphs(value = {
+		@NamedEntityGraph(name = "Address.city", attributeNodes = {@NamedAttributeNode("city")})
+})
+//@formatter:on
 public class AddressEntity
 {
 	private int addressId;
