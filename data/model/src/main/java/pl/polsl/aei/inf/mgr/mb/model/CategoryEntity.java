@@ -10,12 +10,20 @@ import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Id;
+import javax.persistence.NamedAttributeNode;
+import javax.persistence.NamedEntityGraph;
+import javax.persistence.NamedEntityGraphs;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
 
 @Entity
 @Table(name = "category")
+@NamedEntityGraphs(value = {
+		@NamedEntityGraph(name = "Category.filmsRel", attributeNodes = {
+				@NamedAttributeNode("filmsRel")
+		})
+})
 public class CategoryEntity
 {
 	private int categoryId;

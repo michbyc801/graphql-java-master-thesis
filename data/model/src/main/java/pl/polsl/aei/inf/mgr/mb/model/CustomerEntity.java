@@ -11,12 +11,22 @@ import javax.persistence.FetchType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
+import javax.persistence.NamedAttributeNode;
+import javax.persistence.NamedEntityGraph;
+import javax.persistence.NamedEntityGraphs;
 import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
 
 
 @Entity
 @javax.persistence.Table(name = "customer")
+//@formatter:off
+@NamedEntityGraphs(value = {
+		@NamedEntityGraph(name = "Customer.store", attributeNodes = {@NamedAttributeNode("store")}),
+		@NamedEntityGraph(name = "Customer.address", attributeNodes = {@NamedAttributeNode("address")}),
+		@NamedEntityGraph(name = "Customer.rentals", attributeNodes = {@NamedAttributeNode("rentals")})
+})
+//@formatter:on
 public class CustomerEntity
 {
 	private int customerId;
@@ -138,10 +148,7 @@ public class CustomerEntity
 		this.lastUpdate = lastUpdate;
 	}
 
-	@OneToMany(
-			mappedBy = "customer",
-			cascade = CascadeType.ALL,
-			orphanRemoval = true)
+	@OneToMany(mappedBy = "customer", cascade = CascadeType.ALL, orphanRemoval = true)
 	public List<RentalEntity> getRentals()
 	{
 		return rentals;

@@ -11,12 +11,21 @@ import javax.persistence.FetchType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
+import javax.persistence.NamedAttributeNode;
+import javax.persistence.NamedEntityGraph;
+import javax.persistence.NamedEntityGraphs;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
 
 @Entity
 @Table(name = "city")
+//@formatter:off
+@NamedEntityGraphs(value = {
+		@NamedEntityGraph(name = "City.country", attributeNodes = {@NamedAttributeNode("country")}),
+		@NamedEntityGraph(name = "City.adresses", attributeNodes = {@NamedAttributeNode("addresses")})
+})
+//@formatter:on
 public class CityEntity
 {
 	private int cityId;
@@ -61,10 +70,7 @@ public class CityEntity
 		this.lastUpdate = lastUpdate;
 	}
 
-	@OneToMany(
-			mappedBy = "city",
-			cascade = CascadeType.ALL,
-			orphanRemoval = true)
+	@OneToMany(mappedBy = "city", cascade = CascadeType.ALL, orphanRemoval = true)
 	public List<AddressEntity> getAddresses()
 	{
 		return addresses;

@@ -12,12 +12,23 @@ import javax.persistence.FetchType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
+import javax.persistence.NamedAttributeNode;
+import javax.persistence.NamedEntityGraph;
+import javax.persistence.NamedEntityGraphs;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
 
 @Entity
 @Table(name = "rental")
+//@formatter:off
+@NamedEntityGraphs(value = {
+		@NamedEntityGraph(name = "Rental.inventory", attributeNodes = {@NamedAttributeNode("inventory")}),
+		@NamedEntityGraph(name = "Rental.customer", attributeNodes = {@NamedAttributeNode("customer")}),
+		@NamedEntityGraph(name = "Rental.staff", attributeNodes = {@NamedAttributeNode("staff")}),
+		@NamedEntityGraph(name = "Rental.payments", attributeNodes = {@NamedAttributeNode("payments")})
+})
+//@formatter:on
 public class RentalEntity
 {
 	private int rentalId;

@@ -8,10 +8,14 @@ import javax.persistence.FetchType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
+import javax.persistence.NamedAttributeNode;
+import javax.persistence.NamedEntityGraph;
+import javax.persistence.NamedEntityGraphs;
 import javax.persistence.Table;
 
 @Entity
 @Table(name = "address")
+@NamedEntityGraphs(value = {@NamedEntityGraph(name = "Address.city", attributeNodes = {@NamedAttributeNode("city")})})
 public class AddressEntity
 {
 	private int addressId;

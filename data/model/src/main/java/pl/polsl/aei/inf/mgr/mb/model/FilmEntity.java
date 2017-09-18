@@ -21,11 +21,12 @@ import javax.persistence.OneToMany;
 
 @Entity
 @javax.persistence.Table(name = "film")
+//@formatter:off
 @NamedEntityGraphs(value = {
-		@NamedEntityGraph(name = "Film.actorsRel", attributeNodes = {
-				@NamedAttributeNode("actorsRel")
-		})
+		@NamedEntityGraph(name = "Film.actorsRel", attributeNodes = {@NamedAttributeNode("actorsRel")}),
+		@NamedEntityGraph(name = "Film.categoriesRel", attributeNodes = {@NamedAttributeNode("categoriesRel")})
 })
+//@formatter:on
 public class FilmEntity
 {
 	private int filmId;
@@ -200,10 +201,7 @@ public class FilmEntity
 		this.lastUpdate = lastUpdate;
 	}
 
-	@OneToMany(
-			mappedBy = "film",
-			cascade = CascadeType.ALL,
-			orphanRemoval = true)
+	@OneToMany(mappedBy = "film", cascade = CascadeType.ALL, orphanRemoval = true)
 	public Set<FilmActorRel> getActorsRel()
 	{
 		return actorsRel;
@@ -213,10 +211,8 @@ public class FilmEntity
 	{
 		this.actorsRel = actorsRel;
 	}
-	@OneToMany(
-			mappedBy = "film",
-			cascade = CascadeType.ALL,
-			orphanRemoval = true)
+
+	@OneToMany(mappedBy = "film", cascade = CascadeType.ALL, orphanRemoval = true)
 	public Set<FilmCategoryRel> getCategoriesRel()
 	{
 		return categoriesRel;
@@ -232,6 +228,8 @@ public class FilmEntity
 		return actorsRel.stream().map(FilmActorRel::getActor).collect(Collectors.toList());
 	}
 
-	public List<CategoryEntity> categories(){return categoriesRel.stream().map(FilmCategoryRel::getCategory).collect(Collectors.toList());}
-
+	public List<CategoryEntity> categories()
+	{
+		return categoriesRel.stream().map(FilmCategoryRel::getCategory).collect(Collectors.toList());
+	}
 }

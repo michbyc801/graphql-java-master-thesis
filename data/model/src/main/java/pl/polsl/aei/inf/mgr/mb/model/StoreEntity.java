@@ -12,6 +12,9 @@ import javax.persistence.FetchType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
+import javax.persistence.NamedAttributeNode;
+import javax.persistence.NamedEntityGraph;
+import javax.persistence.NamedEntityGraphs;
 import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
 import javax.persistence.Table;
@@ -19,10 +22,18 @@ import javax.persistence.Table;
 
 @Entity
 @Table(name = "store")
+//@formatter:off
+@NamedEntityGraphs(value = {
+		@NamedEntityGraph(name = "Store.manager", attributeNodes = {@NamedAttributeNode("manager")}),
+		@NamedEntityGraph(name = "Store.address", attributeNodes = {@NamedAttributeNode("address")}),
+		@NamedEntityGraph(name = "Store.customers", attributeNodes = {@NamedAttributeNode("customers")}),
+		@NamedEntityGraph(name = "Store.staff", attributeNodes = {@NamedAttributeNode("staff")})
+})
+//@formatter:on
 public class StoreEntity
 {
 	private int storeId;
-	private StoreEntity manager;
+	private StaffEntity manager;
 	private AddressEntity address;
 	private Timestamp lastUpdate;
 	private List<CustomerEntity> customers = new ArrayList<>();
@@ -42,12 +53,12 @@ public class StoreEntity
 
 	@ManyToOne(fetch = FetchType.LAZY)
 	@JoinColumn(name = "manager_staff_id")
-	public StoreEntity getManager()
+	public StaffEntity getManager()
 	{
 		return manager;
 	}
 
-	public void setManager(final StoreEntity manager)
+	public void setManager(final StaffEntity manager)
 	{
 		this.manager = manager;
 	}
@@ -76,10 +87,7 @@ public class StoreEntity
 		this.lastUpdate = lastUpdate;
 	}
 
-	@OneToMany(
-			mappedBy = "store",
-			cascade = CascadeType.ALL,
-			orphanRemoval = true)
+	@OneToMany(mappedBy = "store", cascade = CascadeType.ALL, orphanRemoval = true)
 	public List<CustomerEntity> getCustomers()
 	{
 		return customers;
@@ -90,10 +98,7 @@ public class StoreEntity
 		this.customers = customers;
 	}
 
-	@OneToMany(
-			mappedBy = "store",
-			cascade = CascadeType.ALL,
-			orphanRemoval = true)
+	@OneToMany(mappedBy = "store", cascade = CascadeType.ALL, orphanRemoval = true)
 	public List<StaffEntity> getStaff()
 	{
 		return staff;
