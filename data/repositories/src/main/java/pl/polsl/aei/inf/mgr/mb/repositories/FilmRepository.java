@@ -9,4 +9,5 @@ import pl.polsl.aei.inf.mgr.mb.model.FilmEntity;
 @Repository
 public interface FilmRepository extends EntityGraphJpaRepository<FilmEntity, Integer>
 {
+	FilmEntity getByTitle(final String title);
 }
