@@ -23,7 +23,7 @@ import javax.persistence.Table;
 //@formatter:off
 @NamedEntityGraphs(value = {
 		@NamedEntityGraph(name = "City.country", attributeNodes = {@NamedAttributeNode("country")}),
-		@NamedEntityGraph(name = "City.adresses", attributeNodes = {@NamedAttributeNode("addresses")})
+		@NamedEntityGraph(name = "City.addresses", attributeNodes = {@NamedAttributeNode("addresses")})
 })
 //@formatter:on
 public class CityEntity
