@@ -1,7 +1,8 @@
 type Query {
     actor(actorId: Int): [Actor]
-    film: [Film]
+    film(filmTitle: String): [Film]
     country(countryId: Int): [Country]
+    city(cityId: Int): [City]
 }
 
 type Actor {
@@ -119,3 +120,4 @@ type Store {
     customers: [Customer]
     staff: [Staff]
 }
+
