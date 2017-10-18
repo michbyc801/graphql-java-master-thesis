@@ -1,4 +1,121 @@
 type Query {
-    # If episode omitted, returns the current time, else returns episode
-    hero(episode: String): String
+    actor(actorId: Int): [Actor]
+    film: [Film]
+    country(countryId: Int): [Country]
+}
+
+type Actor {
+    actorId: Int
+    firstName: String
+    lastName: String
+    films: [Film]
+}
+
+type Address {
+    addressId: Int
+    address: String
+    address2: String
+    district: String
+    city: City
+    postalCode: String
+    phone: String
+}
+
+type Category {
+    categoryId: Int
+    name: String
+    films: [Film]
+}
+
+type City {
+    cityId: Int
+    city: String
+    country: Country
+    addresses: [Address]
+}
+
+type Country {
+    countryId: Int
+    country: String
+    cities: [City]
+}
+
+type Customer {
+    customerId: Int
+    firstName: String
+    lastName: String
+    email: String
+    address: Address
+    store: Store
+    active: Boolean
+    rentals: [Rental]
+}
+
+type Film {
+    filmId: Int
+    title: String
+    description: String
+    releaseYear: String
+    language: Language
+    originalLanguage: Language
+    rentalDuration: Int
+    rentalRate: BigDecimal
+    length: Int
+    replacementCost: BigDecimal
+    rating:String
+    specialFeatures: String
+    actors: [Actor]
+    categories: [Category]
+}
+
+type Inventory {
+    inventoryId: Id
+    film: Film
+    store: Store
+    rentals: [Rental]
+}
+
+type Language {
+    languageId: Int
+    name: String
+}
+
+type Payment {
+    paymentId: Int
+    customer: Customer
+    rental: Rental
+    staff: Staff
+    amount: BigDecimal
+}
+
+type Rental {
+    rentalId: Int
+    inventory: Inventory
+    customer: Customer
+    staff: Staff
+    payments: [Payment]
+}
+
+
+type Staff {
+    staffId: Int
+    picture: [Byte]
+    store: Store
+    firstName: String
+    lastName: String
+    email: String
+    address: Address
+    active: Boolean
+    username: String
+    password: String
+    payments: [Payment]
+    rentals: [Rental]
+}
+
+type Store {
+    storeId: Int
+    manager: Staff
+    address: Address
+    customers: [Customer]
+    staff: [Staff]
 }
