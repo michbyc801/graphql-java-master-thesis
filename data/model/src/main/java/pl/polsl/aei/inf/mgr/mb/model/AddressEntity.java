@@ -3,6 +3,7 @@ package pl.polsl.aei.inf.mgr.mb.model;
 import java.sql.Timestamp;
 
 import javax.persistence.Basic;
+import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
 import javax.persistence.Id;
@@ -32,7 +33,7 @@ public class AddressEntity
 	private Timestamp lastUpdate;
 
 	@Id
-	@javax.persistence.Column(name = "address_id")
+	@Column(name = "address_id")
 	public int getAddressId()
 	{
 		return addressId;
@@ -44,7 +45,7 @@ public class AddressEntity
 	}
 
 	@Basic
-	@javax.persistence.Column(name = "address")
+	@Column(name = "address")
 	public String getAddress()
 	{
 		return address;
@@ -56,7 +57,7 @@ public class AddressEntity
 	}
 
 	@Basic
-	@javax.persistence.Column(name = "address2")
+	@Column(name = "address2")
 	public String getAddress2()
 	{
 		return address2;
@@ -68,7 +69,7 @@ public class AddressEntity
 	}
 
 	@Basic
-	@javax.persistence.Column(name = "district")
+	@Column(name = "district")
 	public String getDistrict()
 	{
 		return district;
@@ -92,7 +93,7 @@ public class AddressEntity
 	}
 
 	@Basic
-	@javax.persistence.Column(name = "postal_code")
+	@Column(name = "postal_code")
 	public String getPostalCode()
 	{
 		return postalCode;
@@ -104,7 +105,7 @@ public class AddressEntity
 	}
 
 	@Basic
-	@javax.persistence.Column(name = "phone")
+	@Column(name = "phone")
 	public String getPhone()
 	{
 		return phone;
@@ -116,7 +117,7 @@ public class AddressEntity
 	}
 
 	@Basic
-	@javax.persistence.Column(name = "last_update")
+	@Column(name = "last_update")
 	public Timestamp getLastUpdate()
 	{
 		return lastUpdate;

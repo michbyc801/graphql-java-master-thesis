@@ -15,6 +15,12 @@
 
 	<dependencies>
 		<dependency>
+			<groupId>pl.polsl.aei.inf.mgr.mb</groupId>
+			<artifactId>repositories</artifactId>
+			<version>1.0.0</version>
+		</dependency>
+
+		<dependency>
 			<groupId>com.graphql-java</groupId>
 			<artifactId>graphql-spring-boot-starter</artifactId>
 			<version>3.4.0</version>

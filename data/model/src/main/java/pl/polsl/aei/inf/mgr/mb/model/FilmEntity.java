@@ -8,6 +8,7 @@ import java.util.stream.Collectors;
 
 import javax.persistence.Basic;
 import javax.persistence.CascadeType;
+import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
 import javax.persistence.Id;
@@ -17,14 +18,17 @@ import javax.persistence.NamedAttributeNode;
 import javax.persistence.NamedEntityGraph;
 import javax.persistence.NamedEntityGraphs;
 import javax.persistence.OneToMany;
+import javax.persistence.Table;
 
 
 @Entity
-@javax.persistence.Table(name = "film")
+@Table(name = "film")
 //@formatter:off
 @NamedEntityGraphs(value = {
 		@NamedEntityGraph(name = "Film.actorsRel", attributeNodes = {@NamedAttributeNode("actorsRel")}),
-		@NamedEntityGraph(name = "Film.categoriesRel", attributeNodes = {@NamedAttributeNode("categoriesRel")})
+		@NamedEntityGraph(name = "Film.categoriesRel", attributeNodes = {@NamedAttributeNode("categoriesRel")}),
+		@NamedEntityGraph(name = "Film.language", attributeNodes = {@NamedAttributeNode("language")}),
+		@NamedEntityGraph(name = "Film.originalLanguage", attributeNodes = {@NamedAttributeNode("originalLanguage")})
 })
 //@formatter:on
 public class FilmEntity
@@ -46,7 +50,7 @@ public class FilmEntity
 	private Set<FilmCategoryRel> categoriesRel;
 
 	@Id
-	@javax.persistence.Column(name = "film_id")
+	@Column(name = "film_id")
 	public int getFilmId()
 	{
 		return filmId;
@@ -58,7 +62,7 @@ public class FilmEntity
 	}
 
 	@Basic
-	@javax.persistence.Column(name = "title")
+	@Column(name = "title")
 	public String getTitle()
 	{
 		return title;
@@ -70,7 +74,7 @@ public class FilmEntity
 	}
 
 	@Basic
-	@javax.persistence.Column(name = "description")
+	@Column(name = "description")
 	public String getDescription()
 	{
 		return description;
@@ -82,7 +86,7 @@ public class FilmEntity
 	}
 
 	@Basic
-	@javax.persistence.Column(name = "release_year")
+	@Column(name = "release_year")
 	public String getReleaseYear()
 	{
 		return releaseYear;
@@ -93,7 +97,7 @@ public class FilmEntity
 		this.releaseYear = releaseYear;
 	}
 
-	@ManyToOne(fetch = FetchType.EAGER)
+	@ManyToOne(fetch = FetchType.LAZY)
 	@JoinColumn(name = "language_id")
 	public LanguageEntity getLanguage()
 	{
@@ -105,7 +109,7 @@ public class FilmEntity
 		this.language = language;
 	}
 
-	@ManyToOne(fetch = FetchType.EAGER)
+	@ManyToOne(fetch = FetchType.LAZY)
 	@JoinColumn(name = "original_language_id")
 	public LanguageEntity getOriginalLanguage()
 	{
@@ -118,7 +122,7 @@ public class FilmEntity
 	}
 
 	@Basic
-	@javax.persistence.Column(name = "rental_duration")
+	@Column(name = "rental_duration")
 	public byte getRentalDuration()
 	{
 		return rentalDuration;
@@ -130,7 +134,7 @@ public class FilmEntity
 	}
 
 	@Basic
-	@javax.persistence.Column(name = "rental_rate")
+	@Column(name = "rental_rate")
 	public BigDecimal getRentalRate()
 	{
 		return rentalRate;
@@ -142,7 +146,7 @@ public class FilmEntity
 	}
 
 	@Basic
-	@javax.persistence.Column(name = "length")
+	@Column(name = "length")
 	public Short getLength()
 	{
 		return length;
@@ -154,7 +158,7 @@ public class FilmEntity
 	}
 
 	@Basic
-	@javax.persistence.Column(name = "replacement_cost")
+	@Column(name = "replacement_cost")
 	public BigDecimal getReplacementCost()
 	{
 		return replacementCost;
@@ -166,7 +170,7 @@ public class FilmEntity
 	}
 
 	@Basic
-	@javax.persistence.Column(name = "rating")
+	@Column(name = "rating")
 	public String getRating()
 	{
 		return rating;
@@ -178,7 +182,7 @@ public class FilmEntity
 	}
 
 	@Basic
-	@javax.persistence.Column(name = "special_features")
+	@Column(name = "special_features")
 	public String getSpecialFeatures()
 	{
 		return specialFeatures;
@@ -190,7 +194,7 @@ public class FilmEntity
 	}
 
 	@Basic
-	@javax.persistence.Column(name = "last_update")
+	@Column(name = "last_update")
 	public Timestamp getLastUpdate()
 	{
 		return lastUpdate;
