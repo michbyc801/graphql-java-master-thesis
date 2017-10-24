@@ -2,6 +2,8 @@ package pl.polsl.aei.inf.mgr.mb.model;
 
 import java.math.BigDecimal;
 import java.sql.Timestamp;
+import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 import java.util.stream.Collectors;
@@ -13,6 +15,8 @@ import javax.persistence.Entity;
 import javax.persistence.FetchType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
+import javax.persistence.JoinTable;
+import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
 import javax.persistence.NamedAttributeNode;
 import javax.persistence.NamedEntityGraph;
@@ -20,17 +24,24 @@ import javax.persistence.NamedEntityGraphs;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
+import com.fasterxml.jackson.annotation.JsonIdentityInfo;
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+import com.fasterxml.jackson.annotation.ObjectIdGenerators;
+
 
 @Entity
 @Table(name = "film")
 //@formatter:off
 @NamedEntityGraphs(value = {
-		@NamedEntityGraph(name = "Film.actorsRel", attributeNodes = {@NamedAttributeNode("actorsRel")}),
-		@NamedEntityGraph(name = "Film.categoriesRel", attributeNodes = {@NamedAttributeNode("categoriesRel")}),
+		@NamedEntityGraph(name = "Film.actors", attributeNodes = {@NamedAttributeNode("actors")}),
+		@NamedEntityGraph(name = "Film.categories", attributeNodes = {@NamedAttributeNode("categories")}),
 		@NamedEntityGraph(name = "Film.language", attributeNodes = {@NamedAttributeNode("language")}),
 		@NamedEntityGraph(name = "Film.originalLanguage", attributeNodes = {@NamedAttributeNode("originalLanguage")})
 })
 //@formatter:on
+@JsonIdentityInfo(generator = ObjectIdGenerators.PropertyGenerator.class, property = "filmId")
+@JsonIgnoreProperties(value = {"language","originalLanguage"})
 public class FilmEntity
 {
 	private int filmId;
@@ -46,8 +57,8 @@ public class FilmEntity
 	private String rating;
 	private String specialFeatures;
 	private Timestamp lastUpdate;
-	private Set<FilmActorRel> actorsRel;
-	private Set<FilmCategoryRel> categoriesRel;
+	private List<ActorEntity> actors = new ArrayList<>();
+	private List<CategoryEntity> categories = new ArrayList<>();
 
 	@Id
 	@Column(name = "film_id")
@@ -205,35 +216,33 @@ public class FilmEntity
 		this.lastUpdate = lastUpdate;
 	}
 
-	@OneToMany(mappedBy = "film", cascade = CascadeType.ALL, orphanRemoval = true)
-	public Set<FilmActorRel> getActorsRel()
+	@ManyToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+	@JoinTable(name = "film_actor", joinColumns = {
+			@JoinColumn(name = "film_id", nullable = false, updatable = false) },
+			inverseJoinColumns = { @JoinColumn(name = "actor_id",
+					nullable = false, updatable = false) })
+	public List<ActorEntity> getActors()
 	{
-		return actorsRel;
+		return actors;
 	}
 
-	public void setActorsRel(final Set<FilmActorRel> actorsRel)
+	public void setActors(final List<ActorEntity> actors)
 	{
-		this.actorsRel = actorsRel;
+		this.actors = actors;
 	}
 
-	@OneToMany(mappedBy = "film", cascade = CascadeType.ALL, orphanRemoval = true)
-	public Set<FilmCategoryRel> getCategoriesRel()
+	@ManyToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+	@JoinTable(name = "film_category", joinColumns = {
+			@JoinColumn(name = "film_id", nullable = false, updatable = false) },
+			inverseJoinColumns = { @JoinColumn(name = "category_id",
+					nullable = false, updatable = false) })
+	public List<CategoryEntity> getCategories()
 	{
-		return categoriesRel;
+		return categories;
 	}
 
-	public void setCategoriesRel(final Set<FilmCategoryRel> categoriesRel)
+	public void setCategories(final List<CategoryEntity> categories)
 	{
-		this.categoriesRel = categoriesRel;
-	}
-
-	public List<ActorEntity> actors()
-	{
-		return actorsRel.stream().map(FilmActorRel::getActor).collect(Collectors.toList());
-	}
-
-	public List<CategoryEntity> categories()
-	{
-		return categoriesRel.stream().map(FilmCategoryRel::getCategory).collect(Collectors.toList());
+		this.categories = categories;
 	}
 }

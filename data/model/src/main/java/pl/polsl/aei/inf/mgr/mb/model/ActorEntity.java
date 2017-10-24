@@ -1,6 +1,7 @@
 package pl.polsl.aei.inf.mgr.mb.model;
 
 import java.sql.Timestamp;
+import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
@@ -10,20 +11,26 @@ import javax.persistence.Basic;
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.Id;
+import javax.persistence.ManyToMany;
 import javax.persistence.NamedAttributeNode;
 import javax.persistence.NamedEntityGraph;
 import javax.persistence.NamedEntityGraphs;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
+import com.fasterxml.jackson.annotation.JsonIdentityInfo;
+import com.fasterxml.jackson.annotation.ObjectIdGenerators;
+
 
 @Entity
 @Table(name = "actor")
 //@formatter:off
 @NamedEntityGraphs(value = {
-		@NamedEntityGraph(name = "Actor.filmsRel", attributeNodes = {@NamedAttributeNode("filmsRel")})
+		@NamedEntityGraph(name = "Actor.films", attributeNodes = {@NamedAttributeNode("films")})
 })
+@JsonIdentityInfo(generator = ObjectIdGenerators.PropertyGenerator.class, property = "actorId")
 //@formatter:on
 public class ActorEntity
 {
@@ -31,7 +38,7 @@ public class ActorEntity
 	private String firstName;
 	private String lastName;
 	private Timestamp lastUpdate;
-	private Set<FilmActorRel> filmsRel = new HashSet<>();
+	private List<FilmEntity> films = new ArrayList<>();
 
 	@Id
 	@Column(name = "actor_id")
@@ -81,19 +88,14 @@ public class ActorEntity
 		this.lastUpdate = lastUpdate;
 	}
 
-	@OneToMany(mappedBy = "actor", cascade = CascadeType.ALL, orphanRemoval = true)
-	public Set<FilmActorRel> getFilmsRel()
+	@ManyToMany(fetch = FetchType.LAZY, mappedBy = "categories")
+	public List<FilmEntity> getFilms()
 	{
-		return filmsRel;
+		return films;
 	}
 
-	public void setFilmsRel(final Set<FilmActorRel> filmsRel)
+	public void setFilms(final List<FilmEntity> films)
 	{
-		this.filmsRel = filmsRel;
-	}
-
-	public List<FilmEntity> films()
-	{
-		return filmsRel.stream().map(FilmActorRel::getFilm).collect(Collectors.toList());
+		this.films = films;
 	}
 }

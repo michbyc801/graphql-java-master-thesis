@@ -23,12 +23,12 @@ public class FilmResolver implements GraphQLResolver<FilmEntity>
 
 	List<ActorEntity> getActors(final FilmEntity film)
 	{
-		return filmRepository.findOne(film.getFilmId(), EntityGraphUtils.fromName("Film.actorsRel")).actors();
+		return filmRepository.findOne(film.getFilmId(), EntityGraphUtils.fromName("Film.actors")).getActors();
 	}
 
 	List<CategoryEntity> getCategories(final FilmEntity film)
 	{
-		return filmRepository.findOne(film.getFilmId(), EntityGraphUtils.fromName("Film.categoriesRel")).categories();
+		return filmRepository.findOne(film.getFilmId(), EntityGraphUtils.fromName("Film.categories")).getCategories();
 	}
 
 	LanguageEntity getLanguage(final FilmEntity film)

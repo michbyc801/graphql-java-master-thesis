@@ -1,6 +1,8 @@
 package pl.polsl.aei.inf.mgr.mb.model;
 
 import java.sql.Timestamp;
+import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 import java.util.stream.Collectors;
@@ -9,27 +11,34 @@ import javax.persistence.Basic;
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.Id;
+import javax.persistence.ManyToMany;
 import javax.persistence.NamedAttributeNode;
 import javax.persistence.NamedEntityGraph;
 import javax.persistence.NamedEntityGraphs;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
+import com.fasterxml.jackson.annotation.JsonIdentityInfo;
+import com.fasterxml.jackson.annotation.ObjectIdGenerators;
+
 
 @Entity
 @Table(name = "category")
 //@formatter:off
 @NamedEntityGraphs(value = {
-		@NamedEntityGraph(name = "Category.filmsRel", attributeNodes = {@NamedAttributeNode("filmsRel")})
+		@NamedEntityGraph(name = "Category.films", attributeNodes = {@NamedAttributeNode("films")})
 })
 //@formatter:on
+@JsonIdentityInfo(generator = ObjectIdGenerators.PropertyGenerator.class, property = "categoryId")
 public class CategoryEntity
 {
+
 	private int categoryId;
 	private String name;
 	private Timestamp lastUpdate;
-	private Set<FilmCategoryRel> filmsRel;
+	private List<FilmEntity> films = new ArrayList<>();
 
 	@Id
 	@Column(name = "category_id")
@@ -67,19 +76,14 @@ public class CategoryEntity
 		this.lastUpdate = lastUpdate;
 	}
 
-	@OneToMany(mappedBy = "category", cascade = CascadeType.ALL, orphanRemoval = true)
-	public Set<FilmCategoryRel> getFilmsRel()
+	@ManyToMany(fetch = FetchType.LAZY, mappedBy = "categories")
+	public List<FilmEntity> getFilms()
 	{
-		return filmsRel;
+		return films;
 	}
 
-	public void setFilmsRel(final Set<FilmCategoryRel> filmsRel)
+	public void setFilms(final List<FilmEntity> films)
 	{
-		this.filmsRel = filmsRel;
-	}
-
-	public List<FilmEntity> films()
-	{
-		return filmsRel.stream().map(FilmCategoryRel::getFilm).collect(Collectors.toList());
+		this.films = films;
 	}
 }

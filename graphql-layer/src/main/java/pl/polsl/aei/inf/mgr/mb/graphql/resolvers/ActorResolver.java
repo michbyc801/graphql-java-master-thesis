@@ -1,6 +1,7 @@
 package pl.polsl.aei.inf.mgr.mb.graphql.resolvers;
 
 import java.util.List;
+import java.util.Set;
 
 import org.hibernate.LazyInitializationException;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -21,13 +22,6 @@ public class ActorResolver implements GraphQLResolver<ActorEntity>
 
 	List<FilmEntity> getFilms(final ActorEntity actor)
 	{
-		try
-		{
-			return actor.films();
-		}
-		catch (final LazyInitializationException ex)
-		{
-			return actorRepository.findOne(actor.getActorId(), EntityGraphUtils.fromName("Actor.filmsRel")).films();
-		}
+		return actorRepository.findOne(actor.getActorId(), EntityGraphUtils.fromName("Actor.films")).getFilms();
 	}
 }

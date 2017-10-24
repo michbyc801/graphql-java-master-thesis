@@ -1,6 +1,7 @@
 package pl.polsl.aei.inf.mgr.mb.graphql.resolvers;
 
 import java.util.List;
+import java.util.Set;
 
 import org.hibernate.LazyInitializationException;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -21,13 +22,6 @@ public class CategoryResolver implements GraphQLResolver<CategoryEntity>
 
 	List<FilmEntity> getFilms(final CategoryEntity category)
 	{
-		try
-		{
-			return category.films();
-		}
-		catch (final LazyInitializationException ex)
-		{
-			return categoryRepository.findOne(category.getCategoryId(), EntityGraphUtils.fromName("Category.filmsRel")).films();
-		}
+		return categoryRepository.findOne(category.getCategoryId(), EntityGraphUtils.fromName("Category.films")).getFilms();
 	}
 }
