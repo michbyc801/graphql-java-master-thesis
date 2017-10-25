@@ -13,12 +13,16 @@ import pl.polsl.aei.inf.mgr.mb.model.ActorEntity;
 import pl.polsl.aei.inf.mgr.mb.model.CategoryEntity;
 import pl.polsl.aei.inf.mgr.mb.model.CityEntity;
 import pl.polsl.aei.inf.mgr.mb.model.CountryEntity;
+import pl.polsl.aei.inf.mgr.mb.model.CustomerEntity;
 import pl.polsl.aei.inf.mgr.mb.model.FilmEntity;
+import pl.polsl.aei.inf.mgr.mb.model.StaffEntity;
 import pl.polsl.aei.inf.mgr.mb.repositories.ActorRepository;
 import pl.polsl.aei.inf.mgr.mb.repositories.CategoryRepository;
 import pl.polsl.aei.inf.mgr.mb.repositories.CityRepository;
 import pl.polsl.aei.inf.mgr.mb.repositories.CountryRepository;
+import pl.polsl.aei.inf.mgr.mb.repositories.CustomerRepository;
 import pl.polsl.aei.inf.mgr.mb.repositories.FilmRepository;
+import pl.polsl.aei.inf.mgr.mb.repositories.StaffRepository;
 
 @Component
 public class QueryResolver implements GraphQLQueryResolver
@@ -37,6 +41,12 @@ public class QueryResolver implements GraphQLQueryResolver
 
 	@Autowired
 	private CityRepository cityRepository;
+
+	@Autowired
+	private CustomerRepository customerRepository;
+
+	@Autowired
+	private StaffRepository staffRepository;
 
 	public List<ActorEntity> actor(final Optional<Integer> actorId)
 	{
@@ -66,5 +76,17 @@ public class QueryResolver implements GraphQLQueryResolver
 	{
 		return cityId.map(cityIdInt -> Collections.singletonList(cityRepository.findOne(cityIdInt))).orElseGet(
 				() -> cityRepository.findAll());
+	}
+
+	public List<CustomerEntity> customer(final Optional<Integer> customerId)
+	{
+		return customerId.map(customerIdInt -> Collections.singletonList(customerRepository.findOne(customerIdInt))).orElseGet(
+				() -> customerRepository.findAll());
+	}
+
+	public List<StaffEntity> staff(final Optional<Integer> staffId)
+	{
+		return staffId.map(staffIdInt -> Collections.singletonList(staffRepository.findOne(staffIdInt))).orElseGet(
+				() -> staffRepository.findAll());
 	}
 }

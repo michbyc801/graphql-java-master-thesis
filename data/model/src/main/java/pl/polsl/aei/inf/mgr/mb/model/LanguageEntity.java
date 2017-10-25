@@ -8,9 +8,15 @@ import javax.persistence.Entity;
 import javax.persistence.Id;
 import javax.persistence.Table;
 
+import com.fasterxml.jackson.annotation.JsonIdentityInfo;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+import com.fasterxml.jackson.annotation.ObjectIdGenerators;
+
 
 @Entity
 @Table(name = "language")
+@JsonIdentityInfo(generator = ObjectIdGenerators.PropertyGenerator.class, property = "languageId")
+@JsonIgnoreProperties(value = {"handler","hibernateLazyInitializer"})
 public class LanguageEntity
 {
 	private int languageId;

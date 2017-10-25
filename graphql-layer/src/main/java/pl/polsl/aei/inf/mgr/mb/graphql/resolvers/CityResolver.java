@@ -20,20 +20,8 @@ public class CityResolver implements GraphQLResolver<CityEntity>
 	@Autowired
 	private CityRepository cityRepository;
 
-	List<AddressEntity> getAddresses(final CityEntity cityEntity)
-	{
-		try
-		{
-			return cityEntity.getAddresses();
-		}
-		catch (LazyInitializationException ex)
-		{
-			return cityRepository.findOne(cityEntity.getCityId(), EntityGraphUtils.fromName("City.addresses")).getAddresses();
-		}
-	}
-
 	CountryEntity getCountry(final CityEntity cityEntity)
 	{
-		return cityRepository.findOne(cityEntity.getCityId()).getCountry();
+		return cityRepository.findOne(cityEntity.getCityId(), EntityGraphUtils.fromName("City.country")).getCountry();
 	}
 }

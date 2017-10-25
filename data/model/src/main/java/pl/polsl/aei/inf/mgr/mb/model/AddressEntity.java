@@ -14,6 +14,9 @@ import javax.persistence.NamedEntityGraph;
 import javax.persistence.NamedEntityGraphs;
 import javax.persistence.Table;
 
+import com.fasterxml.jackson.annotation.JsonIdentityInfo;
+import com.fasterxml.jackson.annotation.ObjectIdGenerators;
+
 @Entity
 @Table(name = "address")
 //@formatter:off
@@ -21,6 +24,7 @@ import javax.persistence.Table;
 		@NamedEntityGraph(name = "Address.city", attributeNodes = {@NamedAttributeNode("city")})
 })
 //@formatter:on
+@JsonIdentityInfo(generator = ObjectIdGenerators.PropertyGenerator.class, property = "addressId")
 public class AddressEntity
 {
 	private int addressId;

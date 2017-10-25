@@ -1,7 +1,5 @@
 package pl.polsl.aei.inf.mgr.mb.graphql.resolvers;
 
-import java.util.List;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
@@ -9,7 +7,6 @@ import com.cosium.spring.data.jpa.entity.graph.domain.EntityGraphUtils;
 import com.coxautodev.graphql.tools.GraphQLResolver;
 
 import pl.polsl.aei.inf.mgr.mb.model.AddressEntity;
-import pl.polsl.aei.inf.mgr.mb.model.CustomerEntity;
 import pl.polsl.aei.inf.mgr.mb.model.StaffEntity;
 import pl.polsl.aei.inf.mgr.mb.model.StoreEntity;
 import pl.polsl.aei.inf.mgr.mb.repositories.StoreRepository;
@@ -29,15 +26,5 @@ public class StoreResolver implements GraphQLResolver<StoreEntity>
 	AddressEntity getAddress(final StoreEntity store)
 	{
 		return storeRepository.findOne(store.getStoreId(), EntityGraphUtils.fromName("Store.address")).getAddress();
-	}
-
-	List<CustomerEntity> getCustomer(final StoreEntity store)
-	{
-		return storeRepository.findOne(store.getStoreId(), EntityGraphUtils.fromName("Store.customers")).getCustomers();
-	}
-
-	List<StaffEntity> getStaff(final StoreEntity store)
-	{
-		return storeRepository.findOne(store.getStoreId(), EntityGraphUtils.fromName("Store.staff")).getStaff();
 	}
 }

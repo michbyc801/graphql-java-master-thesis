@@ -1,10 +1,8 @@
 package pl.polsl.aei.inf.mgr.mb.model;
 
 import java.sql.Timestamp;
-import java.util.List;
 
 import javax.persistence.Basic;
-import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
@@ -14,25 +12,28 @@ import javax.persistence.ManyToOne;
 import javax.persistence.NamedAttributeNode;
 import javax.persistence.NamedEntityGraph;
 import javax.persistence.NamedEntityGraphs;
-import javax.persistence.OneToMany;
 import javax.persistence.Table;
+
+import com.fasterxml.jackson.annotation.JsonIdentityInfo;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+import com.fasterxml.jackson.annotation.ObjectIdGenerators;
 
 
 @Entity
 @Table(name = "city")
 //@formatter:off
 @NamedEntityGraphs(value = {
-		@NamedEntityGraph(name = "City.country", attributeNodes = {@NamedAttributeNode("country")}),
-		@NamedEntityGraph(name = "City.addresses", attributeNodes = {@NamedAttributeNode("addresses")})
+		@NamedEntityGraph(name = "City.country", attributeNodes = {@NamedAttributeNode("country")})
 })
 //@formatter:on
+@JsonIdentityInfo(generator = ObjectIdGenerators.PropertyGenerator.class, property = "cityId")
+@JsonIgnoreProperties(value = {"handler","hibernateLazyInitializer"})
 public class CityEntity
 {
 	private int cityId;
 	private String city;
 	private Timestamp lastUpdate;
 	private CountryEntity country;
-	private List<AddressEntity> addresses;
 
 	@Id
 	@Column(name = "city_id")
@@ -68,17 +69,6 @@ public class CityEntity
 	public void setLastUpdate(final Timestamp lastUpdate)
 	{
 		this.lastUpdate = lastUpdate;
-	}
-
-	@OneToMany(mappedBy = "city", cascade = CascadeType.ALL, orphanRemoval = true)
-	public List<AddressEntity> getAddresses()
-	{
-		return addresses;
-	}
-
-	public void setAddresses(final List<AddressEntity> addresses)
-	{
-		this.addresses = addresses;
 	}
 
 	@ManyToOne(fetch = FetchType.LAZY)

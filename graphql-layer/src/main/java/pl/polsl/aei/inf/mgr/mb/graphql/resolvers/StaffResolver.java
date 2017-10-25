@@ -1,5 +1,8 @@
 package pl.polsl.aei.inf.mgr.mb.graphql.resolvers;
 
+import java.io.UnsupportedEncodingException;
+import java.util.Arrays;
+import java.util.Collections;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -9,8 +12,6 @@ import com.cosium.spring.data.jpa.entity.graph.domain.EntityGraphUtils;
 import com.coxautodev.graphql.tools.GraphQLResolver;
 
 import pl.polsl.aei.inf.mgr.mb.model.AddressEntity;
-import pl.polsl.aei.inf.mgr.mb.model.PaymentEntity;
-import pl.polsl.aei.inf.mgr.mb.model.RentalEntity;
 import pl.polsl.aei.inf.mgr.mb.model.StaffEntity;
 import pl.polsl.aei.inf.mgr.mb.model.StoreEntity;
 import pl.polsl.aei.inf.mgr.mb.repositories.StaffRepository;
@@ -33,13 +34,14 @@ public class StaffResolver implements GraphQLResolver<StaffEntity>
 		return staffRepository.findOne(staff.getStaffId(), EntityGraphUtils.fromName("Staff.store")).getStore();
 	}
 
-	List<PaymentEntity> getPayments(final StaffEntity staff)
-	{
-		return staffRepository.findOne(staff.getStaffId(), EntityGraphUtils.fromName("Staff.payments")).getPayments();
-	}
-
-	List<RentalEntity> getRentals(final StaffEntity staff)
-	{
-		return staffRepository.findOne(staff.getStaffId(), EntityGraphUtils.fromName("Staff.rentals")).getRentals();
+	List<String> getPicture(final StaffEntity staffEntity){
+		try
+		{
+			return Arrays.asList(new String(staffEntity.getPicture(), "UTF-8").split(""));
+		}
+		catch (UnsupportedEncodingException e)
+		{
+			return Collections.emptyList();
+		}
 	}
 }

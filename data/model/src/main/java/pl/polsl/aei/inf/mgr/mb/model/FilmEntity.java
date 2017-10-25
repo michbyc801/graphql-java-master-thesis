@@ -3,10 +3,7 @@ package pl.polsl.aei.inf.mgr.mb.model;
 import java.math.BigDecimal;
 import java.sql.Timestamp;
 import java.util.ArrayList;
-import java.util.HashSet;
 import java.util.List;
-import java.util.Set;
-import java.util.stream.Collectors;
 
 import javax.persistence.Basic;
 import javax.persistence.CascadeType;
@@ -21,11 +18,9 @@ import javax.persistence.ManyToOne;
 import javax.persistence.NamedAttributeNode;
 import javax.persistence.NamedEntityGraph;
 import javax.persistence.NamedEntityGraphs;
-import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
 import com.fasterxml.jackson.annotation.JsonIdentityInfo;
-import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.ObjectIdGenerators;
 
@@ -41,7 +36,7 @@ import com.fasterxml.jackson.annotation.ObjectIdGenerators;
 })
 //@formatter:on
 @JsonIdentityInfo(generator = ObjectIdGenerators.PropertyGenerator.class, property = "filmId")
-@JsonIgnoreProperties(value = {"language","originalLanguage"})
+@JsonIgnoreProperties(value = {"handler","hibernateLazyInitializer"})
 public class FilmEntity
 {
 	private int filmId;

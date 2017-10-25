@@ -1,11 +1,10 @@
 package pl.polsl.aei.inf.mgr.mb.model;
 
 import java.sql.Timestamp;
-import java.util.ArrayList;
-import java.util.List;
 
 import javax.persistence.Basic;
 import javax.persistence.CascadeType;
+import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
 import javax.persistence.Id;
@@ -14,8 +13,11 @@ import javax.persistence.ManyToOne;
 import javax.persistence.NamedAttributeNode;
 import javax.persistence.NamedEntityGraph;
 import javax.persistence.NamedEntityGraphs;
-import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
+
+import com.fasterxml.jackson.annotation.JsonIdentityInfo;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+import com.fasterxml.jackson.annotation.ObjectIdGenerators;
 
 
 @Entity
@@ -23,10 +25,11 @@ import javax.persistence.OneToOne;
 //@formatter:off
 @NamedEntityGraphs(value = {
 		@NamedEntityGraph(name = "Customer.store", attributeNodes = {@NamedAttributeNode("store")}),
-		@NamedEntityGraph(name = "Customer.address", attributeNodes = {@NamedAttributeNode("address")}),
-		@NamedEntityGraph(name = "Customer.rentals", attributeNodes = {@NamedAttributeNode("rentals")})
+		@NamedEntityGraph(name = "Customer.address", attributeNodes = {@NamedAttributeNode("address")})
 })
 //@formatter:on
+@JsonIdentityInfo(generator = ObjectIdGenerators.PropertyGenerator.class, property = "customerId")
+@JsonIgnoreProperties(value = {"handler","hibernateLazyInitializer"})
 public class CustomerEntity
 {
 	private int customerId;
@@ -38,10 +41,9 @@ public class CustomerEntity
 	private byte active;
 	private Timestamp createDate;
 	private Timestamp lastUpdate;
-	private List<RentalEntity> rentals = new ArrayList<>();
 
 	@Id
-	@javax.persistence.Column(name = "customer_id")
+	@Column(name = "customer_id")
 	public int getCustomerId()
 	{
 		return customerId;
@@ -65,7 +67,7 @@ public class CustomerEntity
 	}
 
 	@Basic
-	@javax.persistence.Column(name = "first_name")
+	@Column(name = "first_name")
 	public String getFirstName()
 	{
 		return firstName;
@@ -77,7 +79,7 @@ public class CustomerEntity
 	}
 
 	@Basic
-	@javax.persistence.Column(name = "last_name")
+	@Column(name = "last_name")
 	public String getLastName()
 	{
 		return lastName;
@@ -89,7 +91,7 @@ public class CustomerEntity
 	}
 
 	@Basic
-	@javax.persistence.Column(name = "email")
+	@Column(name = "email")
 	public String getEmail()
 	{
 		return email;
@@ -113,7 +115,7 @@ public class CustomerEntity
 	}
 
 	@Basic
-	@javax.persistence.Column(name = "active")
+	@Column(name = "active")
 	public byte getActive()
 	{
 		return active;
@@ -125,7 +127,7 @@ public class CustomerEntity
 	}
 
 	@Basic
-	@javax.persistence.Column(name = "create_date")
+	@Column(name = "create_date")
 	public Timestamp getCreateDate()
 	{
 		return createDate;
@@ -137,7 +139,7 @@ public class CustomerEntity
 	}
 
 	@Basic
-	@javax.persistence.Column(name = "last_update")
+	@Column(name = "last_update")
 	public Timestamp getLastUpdate()
 	{
 		return lastUpdate;
@@ -146,16 +148,5 @@ public class CustomerEntity
 	public void setLastUpdate(final Timestamp lastUpdate)
 	{
 		this.lastUpdate = lastUpdate;
-	}
-
-	@OneToMany(mappedBy = "customer", cascade = CascadeType.ALL, orphanRemoval = true)
-	public List<RentalEntity> getRentals()
-	{
-		return rentals;
-	}
-
-	public void setRentals(final List<RentalEntity> rentals)
-	{
-		this.rentals = rentals;
 	}
 }

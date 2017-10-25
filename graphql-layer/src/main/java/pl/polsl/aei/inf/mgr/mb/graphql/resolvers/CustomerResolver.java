@@ -1,5 +1,6 @@
 package pl.polsl.aei.inf.mgr.mb.graphql.resolvers;
 
+import java.util.Arrays;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -27,15 +28,14 @@ public class CustomerResolver implements GraphQLResolver<CustomerEntity>
 				.getStore();
 	}
 
-	List<RentalEntity> getRentals(final CustomerEntity customerEntity)
-	{
-		return customerRepository.findOne(customerEntity.getCustomerId(), EntityGraphUtils.fromName("Customer.rentals"))
-				.getRentals();
-	}
-
 	AddressEntity getAddress(final CustomerEntity customerEntity)
 	{
 		return customerRepository.findOne(customerEntity.getCustomerId(), EntityGraphUtils.fromName("Customer.address"))
 				.getAddress();
+	}
+
+	Boolean getActive(final CustomerEntity customerEntity)
+	{
+		return customerEntity.getActive() == 1;
 	}
 }

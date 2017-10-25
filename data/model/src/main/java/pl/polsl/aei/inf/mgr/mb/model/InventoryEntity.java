@@ -1,10 +1,8 @@
 package pl.polsl.aei.inf.mgr.mb.model;
 
 import java.sql.Timestamp;
-import java.util.List;
 
 import javax.persistence.Basic;
-import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
@@ -14,8 +12,11 @@ import javax.persistence.ManyToOne;
 import javax.persistence.NamedAttributeNode;
 import javax.persistence.NamedEntityGraph;
 import javax.persistence.NamedEntityGraphs;
-import javax.persistence.OneToMany;
 import javax.persistence.Table;
+
+import com.fasterxml.jackson.annotation.JsonIdentityInfo;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+import com.fasterxml.jackson.annotation.ObjectIdGenerators;
 
 
 @Entity
@@ -23,17 +24,17 @@ import javax.persistence.Table;
 //@formatter:off
 @NamedEntityGraphs(value = {
 		@NamedEntityGraph(name = "Inventory.store", attributeNodes = {@NamedAttributeNode("store")}),
-		@NamedEntityGraph(name = "Inventory.film", attributeNodes = {@NamedAttributeNode("film")}),
-		@NamedEntityGraph(name = "Inventory.rentals", attributeNodes = {@NamedAttributeNode("rentals")})
+		@NamedEntityGraph(name = "Inventory.film", attributeNodes = {@NamedAttributeNode("film")})
 })
 //@formatter:on
+@JsonIdentityInfo(generator = ObjectIdGenerators.PropertyGenerator.class, property = "inventoryId")
+@JsonIgnoreProperties(value = {"handler","hibernateLazyInitializer"})
 public class InventoryEntity
 {
 	private int inventoryId;
 	private FilmEntity film;
 	private StoreEntity store;
 	private Timestamp lastUpdate;
-	private List<RentalEntity> rentals;
 
 	@Id
 	@Column(name = "inventory_id")
@@ -81,19 +82,5 @@ public class InventoryEntity
 	public void setLastUpdate(final Timestamp lastUpdate)
 	{
 		this.lastUpdate = lastUpdate;
-	}
-
-	@OneToMany(
-			mappedBy = "inventory",
-			cascade = CascadeType.ALL,
-			orphanRemoval = true)
-	public List<RentalEntity> getRentals()
-	{
-		return rentals;
-	}
-
-	public void setRentals(final List<RentalEntity> rentals)
-	{
-		this.rentals = rentals;
 	}
 }

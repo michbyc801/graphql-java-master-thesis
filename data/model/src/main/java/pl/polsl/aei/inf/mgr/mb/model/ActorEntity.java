@@ -2,13 +2,9 @@ package pl.polsl.aei.inf.mgr.mb.model;
 
 import java.sql.Timestamp;
 import java.util.ArrayList;
-import java.util.HashSet;
 import java.util.List;
-import java.util.Set;
-import java.util.stream.Collectors;
 
 import javax.persistence.Basic;
-import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
@@ -17,7 +13,6 @@ import javax.persistence.ManyToMany;
 import javax.persistence.NamedAttributeNode;
 import javax.persistence.NamedEntityGraph;
 import javax.persistence.NamedEntityGraphs;
-import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
 import com.fasterxml.jackson.annotation.JsonIdentityInfo;
@@ -30,8 +25,8 @@ import com.fasterxml.jackson.annotation.ObjectIdGenerators;
 @NamedEntityGraphs(value = {
 		@NamedEntityGraph(name = "Actor.films", attributeNodes = {@NamedAttributeNode("films")})
 })
-@JsonIdentityInfo(generator = ObjectIdGenerators.PropertyGenerator.class, property = "actorId")
 //@formatter:on
+@JsonIdentityInfo(generator = ObjectIdGenerators.PropertyGenerator.class, property = "actorId")
 public class ActorEntity
 {
 	private int actorId;
@@ -88,7 +83,7 @@ public class ActorEntity
 		this.lastUpdate = lastUpdate;
 	}
 
-	@ManyToMany(fetch = FetchType.LAZY, mappedBy = "categories")
+	@ManyToMany(fetch = FetchType.LAZY, mappedBy = "actors")
 	public List<FilmEntity> getFilms()
 	{
 		return films;

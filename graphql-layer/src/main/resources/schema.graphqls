@@ -3,6 +3,8 @@ type Query {
     film(filmTitle: String): [Film]
     country(countryId: Int): [Country]
     city(cityId: Int): [City]
+    customer(customerId: Int): [Customer]
+    staff(staffId: Int): [Staff]
 }
 
 type Actor {
@@ -32,13 +34,11 @@ type City {
     cityId: Int
     city: String
     country: Country
-    addresses: [Address]
 }
 
 type Country {
     countryId: Int
     country: String
-    cities: [City]
 }
 
 type Customer {
@@ -49,7 +49,6 @@ type Customer {
     address: Address
     store: Store
     active: Boolean
-    rentals: [Rental]
 }
 
 type Film {
@@ -70,10 +69,9 @@ type Film {
 }
 
 type Inventory {
-    inventoryId: Id
+    inventoryId: Int
     film: Film
     store: Store
-    rentals: [Rental]
 }
 
 type Language {
@@ -94,13 +92,12 @@ type Rental {
     inventory: Inventory
     customer: Customer
     staff: Staff
-    payments: [Payment]
 }
 
 
 type Staff {
     staffId: Int
-    picture: [Byte]
+    picture: [String]
     store: Store
     firstName: String
     lastName: String
@@ -109,15 +106,10 @@ type Staff {
     active: Boolean
     username: String
     password: String
-    payments: [Payment]
-    rentals: [Rental]
 }
 
 type Store {
     storeId: Int
     manager: Staff
     address: Address
-    customers: [Customer]
-    staff: [Staff]
 }
-

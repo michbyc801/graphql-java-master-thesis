@@ -19,25 +19,27 @@ import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
 import javax.persistence.Table;
 
+import com.fasterxml.jackson.annotation.JsonIdentityInfo;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+import com.fasterxml.jackson.annotation.ObjectIdGenerators;
+
 
 @Entity
 @Table(name = "store")
 //@formatter:off
 @NamedEntityGraphs(value = {
 		@NamedEntityGraph(name = "Store.manager", attributeNodes = {@NamedAttributeNode("manager")}),
-		@NamedEntityGraph(name = "Store.address", attributeNodes = {@NamedAttributeNode("address")}),
-		@NamedEntityGraph(name = "Store.customers", attributeNodes = {@NamedAttributeNode("customers")}),
-		@NamedEntityGraph(name = "Store.staff", attributeNodes = {@NamedAttributeNode("staff")})
+		@NamedEntityGraph(name = "Store.address", attributeNodes = {@NamedAttributeNode("address")})
 })
 //@formatter:on
+@JsonIdentityInfo(generator = ObjectIdGenerators.PropertyGenerator.class, property = "storeId")
+@JsonIgnoreProperties(value = {"handler","hibernateLazyInitializer"})
 public class StoreEntity
 {
 	private int storeId;
 	private StaffEntity manager;
 	private AddressEntity address;
 	private Timestamp lastUpdate;
-	private List<CustomerEntity> customers = new ArrayList<>();
-	private List<StaffEntity> staff = new ArrayList<>();
 
 	@Id
 	@Column(name = "store_id")
@@ -85,27 +87,5 @@ public class StoreEntity
 	public void setLastUpdate(final Timestamp lastUpdate)
 	{
 		this.lastUpdate = lastUpdate;
-	}
-
-	@OneToMany(mappedBy = "store", cascade = CascadeType.ALL, orphanRemoval = true)
-	public List<CustomerEntity> getCustomers()
-	{
-		return customers;
-	}
-
-	public void setCustomers(final List<CustomerEntity> customers)
-	{
-		this.customers = customers;
-	}
-
-	@OneToMany(mappedBy = "store", cascade = CascadeType.ALL, orphanRemoval = true)
-	public List<StaffEntity> getStaff()
-	{
-		return staff;
-	}
-
-	public void setStaff(final List<StaffEntity> staff)
-	{
-		this.staff = staff;
 	}
 }

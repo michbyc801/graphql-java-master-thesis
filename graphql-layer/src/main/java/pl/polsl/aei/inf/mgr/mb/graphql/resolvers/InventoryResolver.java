@@ -30,10 +30,4 @@ public class InventoryResolver implements GraphQLResolver<InventoryEntity>
 	{
 		return inventoryRepository.findOne(inventory.getInventoryId(), EntityGraphUtils.fromName("Inventory.film")).getFilm();
 	}
-
-	List<RentalEntity> getRentals(final InventoryEntity inventory)
-	{
-		return inventoryRepository.findOne(inventory.getInventoryId(), EntityGraphUtils.fromName("Inventory.rentals"))
-				.getRentals();
-	}
 }

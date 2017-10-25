@@ -18,6 +18,10 @@ import javax.persistence.NamedEntityGraphs;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
+import com.fasterxml.jackson.annotation.JsonIdentityInfo;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+import com.fasterxml.jackson.annotation.ObjectIdGenerators;
+
 
 @Entity
 @Table(name = "rental")
@@ -25,10 +29,11 @@ import javax.persistence.Table;
 @NamedEntityGraphs(value = {
 		@NamedEntityGraph(name = "Rental.inventory", attributeNodes = {@NamedAttributeNode("inventory")}),
 		@NamedEntityGraph(name = "Rental.customer", attributeNodes = {@NamedAttributeNode("customer")}),
-		@NamedEntityGraph(name = "Rental.staff", attributeNodes = {@NamedAttributeNode("staff")}),
-		@NamedEntityGraph(name = "Rental.payments", attributeNodes = {@NamedAttributeNode("payments")})
+		@NamedEntityGraph(name = "Rental.staff", attributeNodes = {@NamedAttributeNode("staff")})
 })
 //@formatter:on
+@JsonIdentityInfo(generator = ObjectIdGenerators.PropertyGenerator.class, property = "rentalId")
+@JsonIgnoreProperties(value = {"handler","hibernateLazyInitializer"})
 public class RentalEntity
 {
 	private int rentalId;
@@ -38,7 +43,6 @@ public class RentalEntity
 	private Timestamp returnDate;
 	private StaffEntity staff;
 	private Timestamp lastUpdate;
-	private List<PaymentEntity> payments = new ArrayList<>();
 
 	@Id
 	@Column(name = "rental_id")
@@ -123,19 +127,5 @@ public class RentalEntity
 	public void setLastUpdate(final Timestamp lastUpdate)
 	{
 		this.lastUpdate = lastUpdate;
-	}
-
-	@OneToMany(
-			mappedBy = "rental",
-			cascade = CascadeType.ALL,
-			orphanRemoval = true)
-	public List<PaymentEntity> getPayments()
-	{
-		return payments;
-	}
-
-	public void setPayments(final List<PaymentEntity> payments)
-	{
-		this.payments = payments;
 	}
 }

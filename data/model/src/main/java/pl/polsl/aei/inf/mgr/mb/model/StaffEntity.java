@@ -1,11 +1,10 @@
 package pl.polsl.aei.inf.mgr.mb.model;
 
 import java.sql.Timestamp;
-import java.util.ArrayList;
-import java.util.List;
 
 import javax.persistence.Basic;
 import javax.persistence.CascadeType;
+import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
 import javax.persistence.Id;
@@ -14,8 +13,11 @@ import javax.persistence.ManyToOne;
 import javax.persistence.NamedAttributeNode;
 import javax.persistence.NamedEntityGraph;
 import javax.persistence.NamedEntityGraphs;
-import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
+
+import com.fasterxml.jackson.annotation.JsonIdentityInfo;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+import com.fasterxml.jackson.annotation.ObjectIdGenerators;
 
 
 @Entity
@@ -23,11 +25,11 @@ import javax.persistence.OneToOne;
 //@formatter:off
 @NamedEntityGraphs(value = {
 		@NamedEntityGraph(name = "Staff.address", attributeNodes = {@NamedAttributeNode("address")}),
-		@NamedEntityGraph(name = "Staff.store", attributeNodes = {@NamedAttributeNode("store")}),
-		@NamedEntityGraph(name = "Staff.payments", attributeNodes = {@NamedAttributeNode("payments")}),
-		@NamedEntityGraph(name = "Staff.rentals", attributeNodes = {@NamedAttributeNode("rentals")})
+		@NamedEntityGraph(name = "Staff.store", attributeNodes = {@NamedAttributeNode("store")})
 })
 //@formatter:on
+@JsonIdentityInfo(generator = ObjectIdGenerators.PropertyGenerator.class, property = "staffId")
+@JsonIgnoreProperties(value = {"handler", "hibernateLazyInitializer"})
 public class StaffEntity
 {
 	private int staffId;
@@ -41,11 +43,9 @@ public class StaffEntity
 	private String username;
 	private String password;
 	private Timestamp lastUpdate;
-	private List<PaymentEntity> payments = new ArrayList<>();
-	private List<RentalEntity> rentals = new ArrayList<>();
 
 	@Id
-	@javax.persistence.Column(name = "staff_id")
+	@Column(name = "staff_id")
 	public int getStaffId()
 	{
 		return staffId;
@@ -57,7 +57,7 @@ public class StaffEntity
 	}
 
 	@Basic
-	@javax.persistence.Column(name = "first_name")
+	@Column(name = "first_name")
 	public String getFirstName()
 	{
 		return firstName;
@@ -69,7 +69,7 @@ public class StaffEntity
 	}
 
 	@Basic
-	@javax.persistence.Column(name = "last_name")
+	@Column(name = "last_name")
 	public String getLastName()
 	{
 		return lastName;
@@ -93,7 +93,7 @@ public class StaffEntity
 	}
 
 	@Basic
-	@javax.persistence.Column(name = "picture", length = 65535)
+	@Column(name = "picture", length = 65535)
 	public byte[] getPicture()
 	{
 		return picture;
@@ -105,7 +105,7 @@ public class StaffEntity
 	}
 
 	@Basic
-	@javax.persistence.Column(name = "email")
+	@Column(name = "email")
 	public String getEmail()
 	{
 		return email;
@@ -129,7 +129,7 @@ public class StaffEntity
 	}
 
 	@Basic
-	@javax.persistence.Column(name = "active")
+	@Column(name = "active")
 	public byte getActive()
 	{
 		return active;
@@ -141,7 +141,7 @@ public class StaffEntity
 	}
 
 	@Basic
-	@javax.persistence.Column(name = "username")
+	@Column(name = "username")
 	public String getUsername()
 	{
 		return username;
@@ -153,7 +153,7 @@ public class StaffEntity
 	}
 
 	@Basic
-	@javax.persistence.Column(name = "password")
+	@Column(name = "password")
 	public String getPassword()
 	{
 		return password;
@@ -165,7 +165,7 @@ public class StaffEntity
 	}
 
 	@Basic
-	@javax.persistence.Column(name = "last_update")
+	@Column(name = "last_update")
 	public Timestamp getLastUpdate()
 	{
 		return lastUpdate;
@@ -174,33 +174,5 @@ public class StaffEntity
 	public void setLastUpdate(final Timestamp lastUpdate)
 	{
 		this.lastUpdate = lastUpdate;
-	}
-
-	@OneToMany(
-			mappedBy = "staff",
-			cascade = CascadeType.ALL,
-			orphanRemoval = true)
-	public List<PaymentEntity> getPayments()
-	{
-		return payments;
-	}
-
-	public void setPayments(final List<PaymentEntity> payments)
-	{
-		this.payments = payments;
-	}
-
-	@OneToMany(
-			mappedBy = "staff",
-			cascade = CascadeType.ALL,
-			orphanRemoval = true)
-	public List<RentalEntity> getRentals()
-	{
-		return rentals;
-	}
-
-	public void setRentals(final List<RentalEntity> rentals)
-	{
-		this.rentals = rentals;
 	}
 }
