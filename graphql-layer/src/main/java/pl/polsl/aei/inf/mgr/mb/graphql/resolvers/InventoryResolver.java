@@ -13,6 +13,7 @@ import pl.polsl.aei.inf.mgr.mb.model.InventoryEntity;
 import pl.polsl.aei.inf.mgr.mb.model.RentalEntity;
 import pl.polsl.aei.inf.mgr.mb.model.StoreEntity;
 import pl.polsl.aei.inf.mgr.mb.repositories.InventoryRepository;
+import pl.polsl.aei.inf.mgr.mb.repositories.RentalRepository;
 
 @Component
 public class InventoryResolver implements GraphQLResolver<InventoryEntity>
@@ -20,6 +21,9 @@ public class InventoryResolver implements GraphQLResolver<InventoryEntity>
 
 	@Autowired
 	private InventoryRepository inventoryRepository;
+
+	@Autowired
+	private RentalRepository rentalRepository;
 
 	StoreEntity getStore(final InventoryEntity inventory)
 	{
@@ -29,5 +33,10 @@ public class InventoryResolver implements GraphQLResolver<InventoryEntity>
 	FilmEntity getFilm(final InventoryEntity inventory)
 	{
 		return inventoryRepository.findOne(inventory.getInventoryId(), EntityGraphUtils.fromName("Inventory.film")).getFilm();
+	}
+
+	List<RentalEntity> getRentals(final InventoryEntity inventoryEntity)
+	{
+		return rentalRepository.findAllByInventory(inventoryEntity);
 	}
 }

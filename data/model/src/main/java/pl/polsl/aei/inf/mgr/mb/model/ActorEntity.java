@@ -91,6 +91,6 @@ public class ActorEntity
 
 	public void setFilms(final List<FilmEntity> films)
 	{
-		this.films = films;
+		this.films =films;
 	}
 }

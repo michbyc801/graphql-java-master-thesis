@@ -1,10 +1,12 @@
 type Query {
     actor(actorId: Int): [Actor]
     film(filmTitle: String): [Film]
+    category(categoryId: Int): [Category]
     country(countryId: Int): [Country]
     city(cityId: Int): [City]
     customer(customerId: Int): [Customer]
     staff(staffId: Int): [Staff]
+    store(storeId: Int): [Store]
 }
 
 type Actor {
@@ -66,12 +68,14 @@ type Film {
     specialFeatures: String
     actors: [Actor]
     categories: [Category]
+    inventories: [Inventory]
 }
 
 type Inventory {
     inventoryId: Int
     film: Film
     store: Store
+    rentals: [Rental]
 }
 
 type Language {
@@ -92,6 +96,7 @@ type Rental {
     inventory: Inventory
     customer: Customer
     staff: Staff
+    payments: [Payment]
 }
 
 
@@ -112,4 +117,5 @@ type Store {
     storeId: Int
     manager: Staff
     address: Address
+    inventories: [Inventory]
 }

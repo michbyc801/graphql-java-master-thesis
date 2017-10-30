@@ -37,5 +37,10 @@
 			<artifactId>graphql-java-tools</artifactId>
 			<version>4.0.0</version>
 		</dependency>
+		<dependency>
+			<groupId>pl.polsl.aei.inf.mgr.mb</groupId>
+			<artifactId>restapi-layer</artifactId>
+			<version>1.0.0</version>
+		</dependency>
 	</dependencies>
 </project>

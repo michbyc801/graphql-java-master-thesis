@@ -5,10 +5,14 @@ import java.util.List;
 import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Component;
+import org.springframework.context.ApplicationContext;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.bind.annotation.RestController;
 
 import com.coxautodev.graphql.tools.GraphQLQueryResolver;
 
+import pl.polsl.aei.inf.mgr.mb.controllers.ActorController;
 import pl.polsl.aei.inf.mgr.mb.model.ActorEntity;
 import pl.polsl.aei.inf.mgr.mb.model.CategoryEntity;
 import pl.polsl.aei.inf.mgr.mb.model.CityEntity;
@@ -16,6 +20,7 @@ import pl.polsl.aei.inf.mgr.mb.model.CountryEntity;
 import pl.polsl.aei.inf.mgr.mb.model.CustomerEntity;
 import pl.polsl.aei.inf.mgr.mb.model.FilmEntity;
 import pl.polsl.aei.inf.mgr.mb.model.StaffEntity;
+import pl.polsl.aei.inf.mgr.mb.model.StoreEntity;
 import pl.polsl.aei.inf.mgr.mb.repositories.ActorRepository;
 import pl.polsl.aei.inf.mgr.mb.repositories.CategoryRepository;
 import pl.polsl.aei.inf.mgr.mb.repositories.CityRepository;
@@ -23,8 +28,9 @@ import pl.polsl.aei.inf.mgr.mb.repositories.CountryRepository;
 import pl.polsl.aei.inf.mgr.mb.repositories.CustomerRepository;
 import pl.polsl.aei.inf.mgr.mb.repositories.FilmRepository;
 import pl.polsl.aei.inf.mgr.mb.repositories.StaffRepository;
+import pl.polsl.aei.inf.mgr.mb.repositories.StoreRepository;
 
-@Component
+@RestController
 public class QueryResolver implements GraphQLQueryResolver
 {
 	@Autowired
@@ -46,6 +52,9 @@ public class QueryResolver implements GraphQLQueryResolver
 	private CustomerRepository customerRepository;
 
 	@Autowired
+	private StoreRepository storeRepository;
+
+	@Autowired
 	private StaffRepository staffRepository;
 
 	public List<ActorEntity> actor(final Optional<Integer> actorId)
@@ -60,9 +69,9 @@ public class QueryResolver implements GraphQLQueryResolver
 				() -> filmRepository.findAll());
 	}
 
-	public List<CategoryEntity> category(final Optional<String> categoryName)
+	public List<CategoryEntity> category(final Optional<Integer> categoryId)
 	{
-		return categoryName.map(categoryNameString -> categoryRepository.getAllByNameContains(categoryNameString)).orElseGet(
+		return categoryId.map(categoryIdInt -> Collections.singletonList(categoryRepository.findOne(categoryIdInt))).orElseGet(
 				() -> categoryRepository.findAll());
 	}
 
@@ -82,6 +91,12 @@ public class QueryResolver implements GraphQLQueryResolver
 	{
 		return customerId.map(customerIdInt -> Collections.singletonList(customerRepository.findOne(customerIdInt))).orElseGet(
 				() -> customerRepository.findAll());
+	}
+
+	public List<StoreEntity> store(final Optional<Integer> storeId)
+	{
+		return storeId.map(storeIdInt -> Collections.singletonList(storeRepository.findOne(storeIdInt))).orElseGet(
+				() -> storeRepository.findAll());
 	}
 
 	public List<StaffEntity> staff(final Optional<Integer> staffId)

@@ -12,14 +12,19 @@ import com.coxautodev.graphql.tools.GraphQLResolver;
 import pl.polsl.aei.inf.mgr.mb.model.ActorEntity;
 import pl.polsl.aei.inf.mgr.mb.model.CategoryEntity;
 import pl.polsl.aei.inf.mgr.mb.model.FilmEntity;
+import pl.polsl.aei.inf.mgr.mb.model.InventoryEntity;
 import pl.polsl.aei.inf.mgr.mb.model.LanguageEntity;
 import pl.polsl.aei.inf.mgr.mb.repositories.FilmRepository;
+import pl.polsl.aei.inf.mgr.mb.repositories.InventoryRepository;
 
 @Component
 public class FilmResolver implements GraphQLResolver<FilmEntity>
 {
 	@Autowired
 	private FilmRepository filmRepository;
+
+	@Autowired
+	private InventoryRepository inventoryRepository;
 
 	List<ActorEntity> getActors(final FilmEntity film)
 	{
@@ -40,5 +45,10 @@ public class FilmResolver implements GraphQLResolver<FilmEntity>
 	{
 		return filmRepository.findOne(film.getFilmId(), EntityGraphUtils.fromName("Film.originalLanguage"))
 				.getOriginalLanguage();
+	}
+
+	List<InventoryEntity> getInventories(final FilmEntity filmEntity)
+	{
+		return inventoryRepository.findAllByFilm(filmEntity);
 	}
 }

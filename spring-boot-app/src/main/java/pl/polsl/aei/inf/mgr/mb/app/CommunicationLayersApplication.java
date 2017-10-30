@@ -16,7 +16,6 @@ import com.cosium.spring.data.jpa.entity.graph.repository.support.EntityGraphJpa
 @PropertySource("classpath:datasource.properties")
 public class CommunicationLayersApplication
 {
-
 	public static void main(final String[] args)
 	{
 		SpringApplication.run(CommunicationLayersApplication.class, args);
