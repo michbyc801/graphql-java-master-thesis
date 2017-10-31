@@ -20,8 +20,8 @@ public class ActorResolver implements GraphQLResolver<ActorEntity>
 	@Autowired
 	private ActorRepository actorRepository;
 
-//	List<FilmEntity> getFilms(final ActorEntity actor)
-//	{
-//		return actorRepository.findOne(actor.getActorId(), EntityGraphUtils.fromName("Actor.films")).getFilms();
-//	}
+	List<FilmEntity> getFilms(final ActorEntity actor)
+	{
+		return actorRepository.findOne(actor.getActorId(), EntityGraphUtils.fromName("Actor.films")).getFilms();
+	}
 }
