@@ -12,12 +12,19 @@
 
     <artifactId>restapi-layer</artifactId>
     <version>1.0.0</version>
+    <packaging>war</packaging>
 
     <dependencies>
         <dependency>
             <groupId>pl.polsl.aei.inf.mgr.mb</groupId>
             <artifactId>repositories</artifactId>
             <version>1.0.0</version>
+        </dependency>
+
+        <!--Add to fix problem with loading jsp files-->
+        <dependency>
+            <groupId>org.apache.tomcat.embed</groupId>
+            <artifactId>tomcat-embed-jasper</artifactId>
         </dependency>
 
         <dependency>

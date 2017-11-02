@@ -1,6 +1,7 @@
 package pl.polsl.aei.inf.mgr.mb.app;
 
 import org.springframework.boot.SpringApplication;
+import org.springframework.boot.autoconfigure.EnableAutoConfiguration;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.boot.autoconfigure.domain.EntityScan;
 import org.springframework.context.annotation.ComponentScan;
@@ -14,6 +15,7 @@ import com.cosium.spring.data.jpa.entity.graph.repository.support.EntityGraphJpa
 @EnableJpaRepositories(basePackages = "pl.polsl.aei.inf.mgr.mb.repositories", repositoryFactoryBeanClass = EntityGraphJpaRepositoryFactoryBean.class)
 @EntityScan(basePackages = "pl.polsl.aei.inf.mgr.mb.model")
 @PropertySource("classpath:datasource.properties")
+@EnableAutoConfiguration
 public class CommunicationLayersApplication
 {
 	public static void main(final String[] args)

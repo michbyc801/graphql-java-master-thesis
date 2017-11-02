@@ -25,6 +25,7 @@
 			<groupId>pl.polsl.aei.inf.mgr.mb</groupId>
 			<artifactId>restapi-layer</artifactId>
 			<version>1.0.0</version>
+			<type>war</type>
 		</dependency>
 	</dependencies>
 
@@ -33,6 +34,13 @@
 			<plugin>
 				<groupId>org.springframework.boot</groupId>
 				<artifactId>spring-boot-maven-plugin</artifactId>
+				<executions>
+					<execution>
+						<goals>
+							<goal>repackage</goal>
+						</goals>
+					</execution>
+				</executions>
 			</plugin>
 		</plugins>
 	</build>
