@@ -35,4 +35,15 @@ public class InventoryController
 		return inventoryRepository.findOne(id);
 	}
 
+	@RequestMapping("/film/{filmId}")
+	public List<InventoryEntity> getInventoriesByFilmId(@PathVariable final Integer filmId)
+	{
+		return inventoryRepository.findAllByFilm_FilmId(filmId);
+	}
+
+	@RequestMapping("/store/{storeId}")
+	public List<InventoryEntity> getInventoriesByStoreId(@PathVariable final Integer storeId)
+	{
+		return inventoryRepository.findAllByStore_StoreId(storeId);
+	}
 }

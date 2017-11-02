@@ -17,4 +17,8 @@ public interface InventoryRepository extends EntityGraphJpaRepository<InventoryE
 	List<InventoryEntity> findAllByFilm(final FilmEntity film);
 
 	List<InventoryEntity> findAllByStore(StoreEntity store);
+
+	List<InventoryEntity> findAllByFilm_FilmId(Integer filmId);
+
+	List<InventoryEntity> findAllByStore_StoreId(Integer storeId);
 }

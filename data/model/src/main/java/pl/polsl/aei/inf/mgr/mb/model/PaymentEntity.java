@@ -28,7 +28,6 @@ import com.fasterxml.jackson.annotation.ObjectIdGenerators;
 		@NamedEntityGraph(name = "Payment.rental", attributeNodes = {@NamedAttributeNode("rental")})
 })
 //@formatter:on
-@JsonIdentityInfo(generator = ObjectIdGenerators.PropertyGenerator.class, property = "paymentId")
 public class PaymentEntity
 {
 	private int paymentId;

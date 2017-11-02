@@ -14,4 +14,6 @@ import pl.polsl.aei.inf.mgr.mb.model.RentalEntity;
 public interface PaymentRepository extends EntityGraphJpaRepository<PaymentEntity, Integer>
 {
 	List<PaymentEntity> findAllByRental(RentalEntity rentalEntity);
+
+	List<PaymentEntity> findAllByRental_RentalId(Integer rentalId);
 }

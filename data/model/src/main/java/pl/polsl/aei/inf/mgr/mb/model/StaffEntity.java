@@ -14,7 +14,9 @@ import javax.persistence.NamedAttributeNode;
 import javax.persistence.NamedEntityGraph;
 import javax.persistence.NamedEntityGraphs;
 import javax.persistence.OneToOne;
+import javax.persistence.Transient;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.fasterxml.jackson.annotation.JsonIdentityInfo;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.ObjectIdGenerators;
@@ -28,7 +30,6 @@ import com.fasterxml.jackson.annotation.ObjectIdGenerators;
 		@NamedEntityGraph(name = "Staff.store", attributeNodes = {@NamedAttributeNode("store")})
 })
 //@formatter:on
-@JsonIdentityInfo(generator = ObjectIdGenerators.PropertyGenerator.class, property = "staffId")
 @JsonIgnoreProperties(value = {"handler", "hibernateLazyInitializer"})
 public class StaffEntity
 {
@@ -118,6 +119,7 @@ public class StaffEntity
 
 	@ManyToOne(fetch = FetchType.LAZY)
 	@JoinColumn(name = "store_id")
+	@JsonBackReference
 	public StoreEntity getStore()
 	{
 		return store;
@@ -174,5 +176,11 @@ public class StaffEntity
 	public void setLastUpdate(final Timestamp lastUpdate)
 	{
 		this.lastUpdate = lastUpdate;
+	}
+
+	@Transient
+	public Integer getStoreId()
+	{
+		return getStore().getStoreId();
 	}
 }

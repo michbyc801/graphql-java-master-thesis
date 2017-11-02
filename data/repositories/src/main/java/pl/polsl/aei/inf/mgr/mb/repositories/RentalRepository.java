@@ -14,4 +14,6 @@ import pl.polsl.aei.inf.mgr.mb.model.RentalEntity;
 public interface RentalRepository extends EntityGraphJpaRepository<RentalEntity, Integer>
 {
 	List<RentalEntity> findAllByInventory(InventoryEntity inventoryEntity);
+
+	List<RentalEntity> findAllByInventory_InventoryId(Integer inventoryId);
 }

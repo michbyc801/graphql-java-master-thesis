@@ -20,6 +20,7 @@ import javax.persistence.NamedEntityGraph;
 import javax.persistence.NamedEntityGraphs;
 import javax.persistence.Table;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.fasterxml.jackson.annotation.JsonIdentityInfo;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.ObjectIdGenerators;
@@ -35,7 +36,6 @@ import com.fasterxml.jackson.annotation.ObjectIdGenerators;
 		@NamedEntityGraph(name = "Film.originalLanguage", attributeNodes = {@NamedAttributeNode("originalLanguage")})
 })
 //@formatter:on
-@JsonIdentityInfo(generator = ObjectIdGenerators.PropertyGenerator.class, property = "filmId")
 @JsonIgnoreProperties(value = {"handler","hibernateLazyInitializer"})
 public class FilmEntity
 {

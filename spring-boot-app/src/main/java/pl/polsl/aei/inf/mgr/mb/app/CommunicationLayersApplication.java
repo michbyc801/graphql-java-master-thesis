@@ -14,7 +14,8 @@ import com.cosium.spring.data.jpa.entity.graph.repository.support.EntityGraphJpa
 @ComponentScan(basePackages = "pl.polsl.aei.inf.mgr.mb.*")
 @EnableJpaRepositories(basePackages = "pl.polsl.aei.inf.mgr.mb.repositories", repositoryFactoryBeanClass = EntityGraphJpaRepositoryFactoryBean.class)
 @EntityScan(basePackages = "pl.polsl.aei.inf.mgr.mb.model")
-@PropertySource("classpath:datasource.properties")
+//@PropertySource({"classpath:datasource.properties","classpath:datasource-${spring.profiles.active}.properties"})
+@PropertySource({"classpath:datasource.properties"})
 @EnableAutoConfiguration
 public class CommunicationLayersApplication
 {

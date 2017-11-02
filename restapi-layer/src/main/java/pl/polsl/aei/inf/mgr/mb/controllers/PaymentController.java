@@ -33,4 +33,10 @@ public class PaymentController
 		return paymentRepository.findOne(id);
 	}
 
+	@RequestMapping("/rental/{rentalId}")
+	public List<PaymentEntity> getPaymentsByRentalId(@PathVariable final Integer rentalId)
+	{
+		return paymentRepository.findAllByRental_RentalId(rentalId);
+	}
+
 }

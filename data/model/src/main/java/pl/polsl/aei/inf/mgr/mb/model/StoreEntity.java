@@ -32,7 +32,6 @@ import com.fasterxml.jackson.annotation.ObjectIdGenerators;
 		@NamedEntityGraph(name = "Store.address", attributeNodes = {@NamedAttributeNode("address")})
 })
 //@formatter:on
-@JsonIdentityInfo(generator = ObjectIdGenerators.PropertyGenerator.class, property = "storeId")
 @JsonIgnoreProperties(value = {"handler","hibernateLazyInitializer"})
 public class StoreEntity
 {

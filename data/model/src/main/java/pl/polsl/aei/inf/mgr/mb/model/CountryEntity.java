@@ -15,7 +15,6 @@ import com.fasterxml.jackson.annotation.ObjectIdGenerators;
 
 @Entity
 @Table(name = "country")
-@JsonIdentityInfo(generator = ObjectIdGenerators.PropertyGenerator.class, property = "countryId")
 @JsonIgnoreProperties(value = {"handler","hibernateLazyInitializer"})
 public class CountryEntity
 {

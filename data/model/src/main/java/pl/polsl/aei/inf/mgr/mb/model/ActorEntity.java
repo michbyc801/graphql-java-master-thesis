@@ -15,8 +15,7 @@ import javax.persistence.NamedEntityGraph;
 import javax.persistence.NamedEntityGraphs;
 import javax.persistence.Table;
 
-import com.fasterxml.jackson.annotation.JsonIdentityInfo;
-import com.fasterxml.jackson.annotation.ObjectIdGenerators;
+import com.fasterxml.jackson.annotation.JsonBackReference;
 
 
 @Entity
@@ -26,7 +25,6 @@ import com.fasterxml.jackson.annotation.ObjectIdGenerators;
 		@NamedEntityGraph(name = "Actor.films", attributeNodes = {@NamedAttributeNode("films")})
 })
 //@formatter:on
-@JsonIdentityInfo(generator = ObjectIdGenerators.PropertyGenerator.class, property = "actorId")
 public class ActorEntity
 {
 	private int actorId;
@@ -84,6 +82,7 @@ public class ActorEntity
 	}
 
 	@ManyToMany(fetch = FetchType.LAZY, mappedBy = "actors")
+	@JsonBackReference
 	public List<FilmEntity> getFilms()
 	{
 		return films;

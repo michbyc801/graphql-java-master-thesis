@@ -33,4 +33,9 @@ public class RentalController
 		return rentalRepository.findOne(id);
 	}
 
+	@RequestMapping("/inventory/{inventoryId}")
+	public List<RentalEntity> getRentalsByInventoryId(@PathVariable final Integer inventoryId)
+	{
+		return rentalRepository.findAllByInventory_InventoryId(inventoryId);
+	}
 }

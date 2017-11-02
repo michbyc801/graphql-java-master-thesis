@@ -15,7 +15,6 @@ import com.fasterxml.jackson.annotation.ObjectIdGenerators;
 
 @Entity
 @Table(name = "language")
-@JsonIdentityInfo(generator = ObjectIdGenerators.PropertyGenerator.class, property = "languageId")
 @JsonIgnoreProperties(value = {"handler","hibernateLazyInitializer"})
 public class LanguageEntity
 {
