@@ -5,14 +5,10 @@ import java.util.List;
 import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.context.ApplicationContext;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.ResponseBody;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.stereotype.Component;
 
 import com.coxautodev.graphql.tools.GraphQLQueryResolver;
 
-import pl.polsl.aei.inf.mgr.mb.controllers.ActorController;
 import pl.polsl.aei.inf.mgr.mb.model.ActorEntity;
 import pl.polsl.aei.inf.mgr.mb.model.CategoryEntity;
 import pl.polsl.aei.inf.mgr.mb.model.CityEntity;
@@ -30,7 +26,7 @@ import pl.polsl.aei.inf.mgr.mb.repositories.FilmRepository;
 import pl.polsl.aei.inf.mgr.mb.repositories.StaffRepository;
 import pl.polsl.aei.inf.mgr.mb.repositories.StoreRepository;
 
-@RestController
+@Component
 public class QueryResolver implements GraphQLQueryResolver
 {
 	@Autowired
